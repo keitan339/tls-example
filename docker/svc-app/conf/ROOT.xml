@@ -1,0 +1,5 @@
+<Context
+  docBase="/app/svc-app.war"
+  path=""
+  unpackWAR="true"
+/>

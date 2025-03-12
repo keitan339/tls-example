@@ -1,0 +1,5 @@
+<Context
+  docBase="/app/bff-app.war"
+  path=""
+  unpackWAR="true"
+/>

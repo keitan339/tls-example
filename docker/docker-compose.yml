@@ -1,0 +1,16 @@
+services:
+  bff:
+    container_name: bff-app
+    build:
+      context: ./bff-app/
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:8080"
+
+  svc:
+    container_name: svc-app
+    build:
+      context: ./svc-app/
+      dockerfile: ./Dockerfile
+    ports:
+      - "8081:8080"
