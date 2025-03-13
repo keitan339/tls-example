@@ -2,6 +2,7 @@
 
 CURRENT_DIR=$(cd $(dirname $0);pwd)
 APPS_DIR=${CURRENT_DIR}/../app
+SSL_DIR=${CURRENT_DIR}/../ssl
 
 # BFF
 PROJECT_DIR=${APPS_DIR}/bff-app
@@ -28,6 +29,15 @@ if [ -d ${DEST_DIR} ]; then
 fi
 mkdir ${DEST_DIR}
 cp ${SRC_FILE} ${DEST_DIR}
+
+# SSL
+# cp -p ${SSL_DIR}/root/root-ca.p12 ${CURRENT_DIR}/bff-app/tmp
+cp -p ${SSL_DIR}/root/root-ca.crt ${CURRENT_DIR}/bff-app/tmp
+# cp -p ${SSL_DIR}/svc/svc.p12 ${CURRENT_DIR}/bff-app/tmp
+# cp -p ${SSL_DIR}/svc/svc.crt ${CURRENT_DIR}/bff-app/tmp
+# cp -p ${SSL_DIR}/svc/svc.p12 ${CURRENT_DIR}/svc-app/tmp
+cp -p ${SSL_DIR}/svc/svc.crt ${CURRENT_DIR}/svc-app/tmp
+cp -p ${SSL_DIR}/svc/svc.key ${CURRENT_DIR}/svc-app/tmp
 
 # Docker
 cd ${CURRENT_DIR}

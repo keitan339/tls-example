@@ -1,16 +1,20 @@
 services:
   bff:
     container_name: bff-app
+    hostname: bff.example.com
     build:
       context: ./bff-app/
       dockerfile: ./Dockerfile
     ports:
       - "8080:8080"
+      - "8443:8443"
 
   svc:
     container_name: svc-app
+    hostname: svc.example.com
     build:
       context: ./svc-app/
       dockerfile: ./Dockerfile
     ports:
       - "8081:8080"
+      - "8444:8443"
