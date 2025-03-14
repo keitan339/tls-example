@@ -31,8 +31,9 @@ mkdir ${DEST_DIR}
 cp ${SRC_FILE} ${DEST_DIR}
 
 # SSL
-# cp -p ${SSL_DIR}/root/root-ca.p12 ${CURRENT_DIR}/bff-app/tmp
 cp -p ${SSL_DIR}/root/root-ca.crt ${CURRENT_DIR}/bff-app/tmp
+cp -p ${SSL_DIR}/bff/bff.crt ${CURRENT_DIR}/bff-app/tmp
+cp -p ${SSL_DIR}/bff/bff.key ${CURRENT_DIR}/bff-app/tmp
 # cp -p ${SSL_DIR}/svc/svc.p12 ${CURRENT_DIR}/bff-app/tmp
 # cp -p ${SSL_DIR}/svc/svc.crt ${CURRENT_DIR}/bff-app/tmp
 # cp -p ${SSL_DIR}/svc/svc.p12 ${CURRENT_DIR}/svc-app/tmp

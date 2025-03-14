@@ -3,20 +3,15 @@ package com.example.bff.controller;
 import java.net.Socket;
 import java.net.http.HttpClient;
 import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509ExtendedTrustManager;
 import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.JdkClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,8 +35,7 @@ public class ExampleController {
         final String SVC_URL = "https://svc.example.com:8443/example/execute";
         // final String SVC_URL = "https://svc-app:8443/example/execute";
 
-        RestClient restClient = RestClient.create();
-        // RestClient restClient = createRestClient();
+        RestClient restClient = createRestClient(true);
 
         ExampleResponse result =
                 restClient.post().uri(SVC_URL).body(request).retrieve().body(ExampleResponse.class);
@@ -50,8 +44,21 @@ public class ExampleController {
         return result;
     }
 
-    public RestClient createRestClient() throws NoSuchAlgorithmException, KeyManagementException {
+    public RestClient createRestClient(boolean enableSslCertificateValidation)
+            throws NoSuchAlgorithmException, KeyManagementException {
+        if (enableSslCertificateValidation) {
+            return createDefaultRestClient();
+        } else {
+            return createDisableSslCertificateValidationRestClient();
+        }
+    }
 
+    private RestClient createDefaultRestClient() {
+        return RestClient.create();
+    }
+
+    private RestClient createDisableSslCertificateValidationRestClient()
+            throws NoSuchAlgorithmException, KeyManagementException {
         TrustManager trustManager = new X509ExtendedTrustManager() {
 
             @Override
@@ -92,12 +99,9 @@ public class ExampleController {
                 System.out.println("ignore checkServerTrusted 2");
             }
 
-
             @Override
             public void checkServerTrusted(X509Certificate[] chain, String authType,
                     SSLEngine engine) throws CertificateException {
-                System.out.println("X509Certificate:" + chain.length);
-                System.out.println("authType:" + authType);
                 System.out.println("ignore checkServerTrusted 3");
             }
 

@@ -90,18 +90,17 @@
          the SSLImplementation selected. JSSE style configuration is used below.
     -->
 
-    <!--
     <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
       maxThreads="150" SSLEnabled="true"
       maxParameterCount="1000"
     >
       <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
       <SSLHostConfig>
-        <Certificate certificateKeystoreFile="/app/keystore.jks"
-          certificateKeystorePassword="changeit" type="RSA" />
+        <Certificate
+          certificateFile="/app/bff.crt" certificateKeyFile="/app/bff.key" />
       </SSLHostConfig>
     </Connector>
--->
+
     <!-- Define an AJP 1.3 Connector on port 8009 -->
     <!--
     <Connector protocol="AJP/1.3"
